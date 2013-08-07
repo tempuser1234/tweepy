@@ -84,8 +84,10 @@ class IdIterator(BaseIterator):
         BaseIterator.__init__(self, method, args, kargs)
 
         # remove these parameters from the kargs and save them separately if they were specified
-        self.max_id = long(kargs.pop('max_id')) if kargs.has_key('max_id') else None
-        self.since_id = long(kargs.pop('since_id')) if kargs.has_key('since_id') else None
+        max_id = kargs.pop('max_id') if kargs.has_key('max_id') else None
+        self.max_id = None if max_id is None else long(max_id) 
+        since_id = kargs.pop('since_id') if kargs.has_key('since_id') else None
+        self.since_id = None if since_id is None else long(since_id) 
 
         # set the first max_id - the top of the tweet stack
         self.next_max_id = self.max_id if self.max_id else None
